@@ -65,12 +65,12 @@ function draw() {
       startcapturing = false
       var request = new XMLHttpRequest();
       request.open('POST', 'http://localhost:5000/data', true);
-      request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.setRequestHeader('Content-type', 'application/json');
       var data ={
         frames: capture,
         label: label
       }
-      request.send(data);
+      request.send(JSON.stringify(data));
       
       
 

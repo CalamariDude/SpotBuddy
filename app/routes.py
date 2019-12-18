@@ -1,4 +1,5 @@
 from app import app
+import json
 from flask import request
 
 @app.route('/')
@@ -9,7 +10,8 @@ def main():
 @app.route('/data', methods=['GET', 'POST'])
 def index(): 
     print("hello")   
-    print(request.get_data()[0])
+    data = request.json
+    print(data)
     # pose = request.form.get('frames')
     # label = request.form.get('label')
     # print('recieved pose', pose)
