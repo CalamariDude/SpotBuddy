@@ -63,17 +63,24 @@ function draw() {
     if(elapsed > date + (seconds * 1000)){
       console.log("capture", capture)
       startcapturing = false
-      var request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost:5000/data', true);
-      request.setRequestHeader('Content-type', 'application/json');
+     
       var data ={
         frames: capture,
         label: label
+      };
+      try {
+        const response = await fetch('http://localhost:5000/data', 
+        {
+          method: 'POST', 
+          body: JSON.stringify(data), 
+          headers: {'Content-Type': 'application/json'}
+        }
+      );
+        const json = await response.json();
+        console.log('Success:', JSON.stringify(json))
+      } catch(error){
+        console.error('Error:', error);
       }
-      request.send(JSON.stringify(data));
-      
-      
-
     }
   }
   // We can call both functions to draw all keypoints and the skeletons
