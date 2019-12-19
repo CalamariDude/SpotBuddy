@@ -57,7 +57,7 @@ function draw() {
   if (startcapturing == true){
     elapsed = Date.now()
     capture.push(poses)
-    let seconds = 1
+    let seconds = 5
     console.log(elapsed + " " + date)
     
     if(elapsed > date + (seconds * 1000)){
