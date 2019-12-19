@@ -63,25 +63,26 @@ function draw() {
     if(elapsed > date + (seconds * 1000)){
       console.log("capture", capture)
       startcapturing = false
-     
+      console.log("data")
       var data ={
         frames: capture,
         label: label
       };
-      try {
-        const response = await fetch('http://localhost:5000/data', 
-        {
-          method: 'POST', 
-          body: JSON.stringify(data), 
-          headers: {'Content-Type': 'application/json'}
-        }
-      );
-        const json = await response.json();
-        console.log('Success:', JSON.stringify(json))
-      } catch(error){
-        console.error('Error:', error);
+      const response = fetch('http://localhost:5000/data', 
+      {
+        method: 'POST', 
+        body: JSON.stringify(data), 
+        headers: {'Content-Type': 'text/plain'}
       }
-    }
+      ).then(function(df){
+        console.log(df)
+        console.log('Success:', JSON.stringify(json))
+        var json =  response.json();
+      })
+      .catch(function(){
+        console.log('fail')
+      })
+      }
   }
   // We can call both functions to draw all keypoints and the skeletons
   drawKeypoints();

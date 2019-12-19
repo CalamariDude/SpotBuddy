@@ -10,8 +10,8 @@ def main():
 @app.route('/data', methods=['GET', 'POST'])
 def index(): 
     print("hello")   
-    data = request.json
-    print(data)
+    data = json.loads(request.data)
+    print(data['label'])
     # pose = request.form.get('frames')
     # label = request.form.get('label')
     # print('recieved pose', pose)
