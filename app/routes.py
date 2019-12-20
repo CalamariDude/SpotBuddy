@@ -28,3 +28,17 @@ def saver():
     np.save('frames', frames)
     np.save('labels', labels)
     return '0'
+
+@app.route('/delete', methods=['DELETE'])
+def delete():
+    data = json.loads(request.data)
+    index = data['index']
+    del frames[index]
+    del labels[index]
+    return '0'
+
+@app.route('/clear', methods=['GET'])
+def clear():
+    frames=[]
+    labels=[]
+    return '0'

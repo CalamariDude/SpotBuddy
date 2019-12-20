@@ -11,11 +11,20 @@ PoseNet example using p5.js
 let video;
 let poseNet;
 let poses = [];
+//Save the current models 
 function save() {
   fetch('http://localhost:5000/save').then(function(){
     console.log("saved")
   }).catch(function(){
     console.log("failed to save")
+  });
+}
+
+function clear() {
+  fetch('http://localhost:5000/clear').then(function(){
+    console.log("failed to clear")
+  }).catch(function(){
+    console.log("failed to clear")
   });
 }
 
@@ -34,6 +43,21 @@ function setup() {
   video.hide();
 }
 
+//Hook to delete a specific training point
+function deleteIndex() {
+  var index = document.getElementById('index').value;
+  fetch('http://localhost:5000/delete', {
+    'methods':'DELETE',
+    'data': {index:index},
+    'Content-Type':'text/plain'
+  }).then(function(){
+    console.log("Success")
+  }).catch(function(){
+    console.log("failure")
+  })
+}
+
+//Hook to change status text when model loaded
 function modelReady() {
   select('#status').html('Model Loaded');
 }
@@ -41,40 +65,44 @@ function modelReady() {
 var capture = [];
 let counter = 0
 var startcapturing = false
+//Hook for capturing the good label data
 function startcapturinggood() {
   startcapturing = true
   label = 0
 }
+//Hook for capturing the bad label data
 function startcapturingbad(){
   startcapturing = true
   label = 1
 }
-var capture = []
 
 var date = 0
+//Draws the points on the figure
 function draw() {  
   image(video, 0, 0, width, height);
   console.log(startcapturing)
+  //Keep updating the timer
   if(startcapturing == false){
     capture = []
     date = Date.now()
     var elapsed = 0
     
   }
+  //If there is hook to start capturing, start calculating the elapsed time
   if (startcapturing == true){
     elapsed = Date.now()
     capture.push(poses)
     let seconds = 5
     console.log(elapsed + " " + date)
-    
+    //if time is elapsed, send the data and label to the server
     if(elapsed > date + (seconds * 1000)){
       console.log("capture", capture)
       startcapturing = false
-      console.log("data")
       var data ={
         frames: capture,
         label: label
       };
+      //POST request to add a training data
       const response = fetch('http://localhost:5000/data', 
       {
         method: 'POST', 
