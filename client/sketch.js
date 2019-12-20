@@ -11,6 +11,13 @@ PoseNet example using p5.js
 let video;
 let poseNet;
 let poses = [];
+function save() {
+  fetch('http://localhost:5000/save').then(function(){
+    console.log("saved")
+  }).catch(function(){
+    console.log("failed to save")
+  });
+}
 
 function setup() {
   createCanvas(640, 480);
