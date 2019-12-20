@@ -7,8 +7,8 @@ import json
 frames = []
 labels = []
 if(Path('frames.npy').is_file()):
-    frames = np.load('frames.npy')
-    labels = np.load('labels.npy')
+    frames = np.load('frames.npy', allow_pickle=True)
+    labels = np.load('labels.npy', allow_pickle=True)
 
 @app.route('/')
 def main():

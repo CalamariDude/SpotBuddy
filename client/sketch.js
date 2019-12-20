@@ -64,6 +64,7 @@ function modelReady() {
 
 var capture = [];
 let counter = 0
+var date = 0
 var startcapturing = false
 //Hook for capturing the good label data
 function startcapturinggood() {
@@ -76,7 +77,6 @@ function startcapturingbad(){
   label = 1
 }
 
-var date = 0
 //Draws the points on the figure
 function draw() {  
   image(video, 0, 0, width, height);
