@@ -11,11 +11,12 @@ PoseNet example using p5.js
 let video;
 let poseNet;
 let poses = [];
+
 //Save the current models 
-function saveFrames() {
+function saveData() {
 fetch('http://localhost:5000/save',{
-  method:'GET',
-  body:{},
+  method:'POST',
+  body:JSON.stringify({}),
   headers: {'Content-Type': 'text/plain'}
 }).then(function(){
 console.log("saved")
@@ -24,9 +25,9 @@ console.log("failed to save")
 });
 }
 
-function clear() {
+function clearData() {
 fetch('http://localhost:5000/clear', {
-  method:'GET',
+  method:'POST',
   body:{},
   headers: {'Content-Type': 'text/plain'}
 }).then(function(){
@@ -52,10 +53,10 @@ video.hide();
 }
 
 //Hook to delete a specific training point
-function deleteIndex() {
+function deleteData() {
 var index = document.getElementById('index').value;
 fetch('http://localhost:5000/delete', {
-method:'DELETE',
+method:'POST',
 data: {index:index},
 headers: {'Content-Type': 'text/plain'}
 }).then(function(){
