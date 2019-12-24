@@ -4,11 +4,15 @@ from pathlib import Path
 import numpy as np
 import json
 
-frames = np.asarray([])
-labels = np.asarray([])
+frames = []
+labels = []
 if(Path('frames.npy').is_file()):
-    frames = np.load('frames.npy', allow_pickle=True)
-    labels = np.load('labels.npy', allow_pickle=True)
+    frames_loaded = np.load('frames.npy', allow_pickle=True)
+    labels_loaded = np.load('labels.npy', allow_pickle=True)
+    for frame, label in zip(frames_loaded, labels_loaded):
+        frames.append(frame)
+        labels.append(label)
+
 
 @app.route('/')
 def main():
@@ -18,13 +22,11 @@ def main():
 @app.route('/data', methods=['GET', 'POST'])
 def index(): 
     data = json.loads(request.data)
-    print(data['label'])
     global frames
     global labels
-    frames = np.append(frames, data['frames'])
-    labels = np.append(labels, data['label'])
-    print("frames shape ", frames.shape)
-    print("labels shape ", labels.shape)
+    frames.append(data['frames'])
+    labels.append(data['label'])
+    print(len(frames))
     return '0'
 
 @app.route('/save', methods=['GET', 'POST'])
@@ -43,14 +45,12 @@ def delete():
     data = json.loads(request.data)
     index = data['index']
     print("deleting at index", index)
-    del frames[index]
-    del labels[index]
     return '0'
 
 @app.route('/clear', methods=['GET', 'POST'])
 def clear():
     global frames
-    frames =np.asarray([])
+    frames =[]
     global labels
-    labels =np.asarray([])
+    labels =[]
     return '0'
