@@ -101,7 +101,7 @@ var elapsed = 0
 if (startcapturing == true){
 elapsed = Date.now()
 capture.push(poses)
-let seconds = 5
+let seconds = 4
 console.log(elapsed + " " + date)
 //if time is elapsed, send the data and label to the server
 if(elapsed > date + (seconds * 1000)){
