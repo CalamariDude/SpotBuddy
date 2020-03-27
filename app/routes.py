@@ -1,5 +1,5 @@
 from app import app
-from flask import request
+from flask import request, render_template
 from pathlib import Path
 import numpy as np
 import json
@@ -17,10 +17,18 @@ if(Path('frames.npy').is_file()):
 @app.route('/')
 def main():
     print("wrong routes")
-    return "wrong area"
+    return "kden"
+
+@app.route('/upload')
+def upload():
+    return render_template('/upload.html')
+
+@app.route('/record')
+def record():
+    return render_template('/record.html')
 
 @app.route('/data', methods=['GET', 'POST'])
-def index(): 
+def index():
     data = json.loads(request.data)
     global frames
     global labels
