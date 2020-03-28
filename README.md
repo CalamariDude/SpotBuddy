@@ -6,3 +6,17 @@ Using Tensorflow's mobile posenet and machine learning, this project attempts to
 it is currently still in prototype stage. We will be publishing our first beta April.
 
 <img src = './assets/squat-one.png'>
+
+
+
+# Build Instructions
+1. Create anaconda environment 
+2. `conda install -c anaconda flask`
+3. `export FLASK_ENV=development`
+4. In the root of this repo, do `flask run`
+
+Then You should be able to go to http://localhost:5000/
+
+## Dependencies
+-- todo --
+
