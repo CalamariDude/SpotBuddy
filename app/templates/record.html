@@ -10,7 +10,7 @@
         Start
         </div>
         <h2>Preview</h2>
-        <video id="preview" width="160" height="120" autoplay muted></video>
+        <video id="preview" width="400" height="300" autoplay muted></video>
     </div>
 
     <div class="right">
@@ -18,7 +18,7 @@
         Stop
         </div>
         <h2>Recording</h2>
-        <video id="recording" width="160" height="120" controls></video>
+        <video id="recording" width="400" height="300" controls></video>
         <a id="downloadButton" class="button">
         Download Good
         </a>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="bottom">
-        <p id="log"> log here</p>
+        <p id="log"> Logging: </p>
     </div>
 
 
@@ -77,8 +77,38 @@
         .then(() => data);
     }
 
+    async function doCountdown(i, t) {
+        setTimeout(log("counting down " + i + " seconds"), 1000);
+       
+    }
+
+    function delay(t, v) {
+        // chain promises for delay
+       return new Promise(async(resolve) => { 
+        log("Timeout for now");
+        for (i=t; i>=0; i--) {
+            if (i==0) {
+                //log("counting down " + i + " seconds")
+                setTimeout(resolve.bind(null, v), 1000);
+                //await sleep(1000);
+            } else {
+                doCountdown(i, t);
+                await new Promise(r => setTimeout(r, 1000));
+            }
+            
+        }
+       });
+    }
+    
+
     function stop(stream) {
         stream.getTracks().forEach(track => track.stop());
+    }
+
+    Promise.prototype.delay = function(t) {
+        return this.then(function(v) {
+            return delay(t, v);
+        });
     }
 
     startButton.addEventListener("click", function() {
@@ -90,8 +120,9 @@
                 downloadButton.href = stream;
                 downloadButtonBad.href = stream;
                 preview.captureStream = preview.captureStream || preview.mozCaptureStream;
+                
                 return new Promise(resolve => preview.onplaying = resolve);
-              }).then(() => startRecording(preview.captureStream(), recordingTimeMS))
+              }).delay(5).then(() => startRecording(preview.captureStream(), recordingTimeMS))
               .then (recordedChunks => {
                 let recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
                 recording.src = URL.createObjectURL(recordedBlob);

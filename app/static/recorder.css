@@ -10,7 +10,7 @@ video {
 .button {
   cursor: pointer;
   display: block;
-  width: 160px;
+  width: 400px;
   border: 1px solid black;
   font-size: 16px;
   text-align: center;
@@ -28,14 +28,14 @@ h2 {
 .left {
   margin-right: 10px;
   float: left;
-  width: 160px;
+  width: 400px;
   padding: 0px;
 }
 
 .right {
   margin-left: 10px;
   float: left;
-  width: 160px;
+  width: 400px;
   padding: 0px;
 }
 
