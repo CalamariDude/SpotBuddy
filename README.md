@@ -20,3 +20,4 @@ Then You should be able to go to http://localhost:5000/
 ## Dependencies
 -- todo --
 
+<img src = './assets/demo.gif>
