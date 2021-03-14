@@ -21,3 +21,7 @@ Then You should be able to go to http://localhost:5000/
 -- todo --
 
 <img src = './assets/demo.gif'>
+
+
+## Note
+If you would like access to the full dataset, please contact me. We currently are not publishing our dataset and full model. You can view a sample in the notebook in this repo.
