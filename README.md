@@ -6,3 +6,5 @@ Using Tensorflow's mobile posenet and machine learning, this project attempts to
 it is currently still in prototype stage. We will be publishing our first beta April.
 
 <img src = './assets/squat-one.png'>
+
+<img src = './assets/demo.gif>
